@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="gui.projects.BestandsListe">
+  <grid id="27dc6" binding="contentPane" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="18" y="20" width="564" height="412"/>
+    </constraints>
+    <properties>
+      <foreground color="-16645886"/>
+    </properties>
+    <border type="none" title="Bestands-Liste" title-position="1">
+      <font name="JetBrains Mono" size="12" style="2"/>
+      <title-color color="-66049"/>
+    </border>
+    <children>
+      <component id="f04d7" class="javax.swing.JLabel">
+        <constraints border-constraint="Center"/>
+        <properties>
+          <text value="Label"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
