@@ -1,3 +1,5 @@
+package gui.projects;
+
 import java.awt.EventQueue;
 
 import java.util.ArrayList;
@@ -14,10 +16,15 @@ import javax.swing.JList;
 
 import javax.swing.ListSelectionModel;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.File;
+
+import java.io.FileReader;
+import java.io.BufferedReader;
+
+import java.io.FileWriter;
 import java.io.BufferedWriter;
+
+import java.io.IOException;
 
 public class KontaktlisteMitSpeichern extends JFrame {
 
@@ -40,7 +47,7 @@ public class KontaktlisteMitSpeichern extends JFrame {
   public static void main(String[] args) {
     EventQueue.invokeLater(() -> {
       try {
-        KontaktlisteMitSpeichern frame = new KontaktlisteMitSpeichern();
+        KontaktlisteMitSpeichern frame = new KontaktlisteMitSpeichern();  //Frame-Objekt wird erzeugt
         frame.setVisible(true);
       } catch(Exception e) {
         e.printStackTrace();
@@ -51,7 +58,7 @@ public class KontaktlisteMitSpeichern extends JFrame {
   /*
    * Create the Frame
    */
-  public KontaktlisteMitSpeichern() {
+  public KontaktlisteMitSpeichern() { //Frame-Konstruktor wird aufgerufen
 
     setTitle("Kontaktliste");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -139,6 +146,27 @@ public class KontaktlisteMitSpeichern extends JFrame {
     listKontakte.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Die Markierung von nur einem Eintrag erlauben
     scrollPane.setViewportView(listKontakte);
 
+    kontakteModel = new DefaultListModel<>(); // ListModel für die JList wird erzeugt
+    listKontakte.setModel(kontakteModel); // Zuordnung des ListModels zur JList
+
+    var datei = new File(dateiPfad);
+    if (!datei.exists()){
+      try{
+        datei.createNewFile();
+      } catch (IOException e){
+        e.printStackTrace();
+      }
+    } else {
+      String adresszeile;
+      try (var in = new BufferedReader(new FileReader(datei))) {
+        while((adresszeile = in.readLine()) != null) {
+          kontakteModel.addElement(adresszeile);
+        }
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    }
+
     JLabel lblKontaktliste = new JLabel("Kontaktliste");
     lblKontaktliste.setBounds(10, 105, 131, 14);
     contentPane.add(lblKontaktliste);
@@ -156,7 +184,7 @@ public class KontaktlisteMitSpeichern extends JFrame {
         System.exit(0);
 
     });
-    btnEnde.setBounds(425, 235, 89, 23);
+    btnEnde.setBounds(425, 270, 89, 23);
     contentPane.add(btnEnde);
 
     JButton btnSpeichern = new JButton("Speichern");
@@ -170,11 +198,9 @@ public class KontaktlisteMitSpeichern extends JFrame {
           ex2.printStackTrace();
         }
     });
-    btnSpeichern.setBounds(429, 272, 85, 21);
+    btnSpeichern.setBounds(420, 235, 100, 21);
     contentPane.add(btnSpeichern);
 
-    kontakteModel = new DefaultListModel<>();
-    listKontakte.setModel(kontakteModel);
 
     JButton btnLoeschen = new JButton("markierten Eintrag l\u00F6schen");
     btnLoeschen.addActionListener(e -> {
