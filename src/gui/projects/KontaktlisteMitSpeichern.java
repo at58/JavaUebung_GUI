@@ -96,7 +96,7 @@ public class KontaktlisteMitSpeichern extends JFrame {
     contentPane.add(tfTelefon);
     tfTelefon.setColumns(10);
 
-    JLabel lblEmail = new JLabel("EMail *");
+    JLabel lblEmail = new JLabel("E-Mail *");
     lblEmail.setBounds(10, 58, 131, 14);
     contentPane.add(lblEmail);
 
